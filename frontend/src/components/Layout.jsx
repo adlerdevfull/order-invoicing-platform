@@ -2,21 +2,18 @@ import { Outlet, NavLink } from 'react-router-dom'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useI18n } from '../hooks/useI18n'
 import { useAuth } from '../hooks/useAuth'
-import { LayoutDashboard, Package, ShoppingCart, FileText, LogOut } from 'lucide-react'
+import { FileText, LayoutDashboard, LogOut, Package, ShoppingCart } from 'lucide-react'
 
 export default function Layout() {
   const { user, logout } = useAuth()
   const { t, locale } = useI18n()
 
   const nav = [
-    { to: '/', icon: LayoutDashboard, label: t('nav.home') || t('dashboard') },
+    { to: '/', icon: LayoutDashboard, label: t('nav.home') },
     { to: '/products', icon: Package, label: t('nav.products') },
     { to: '/orders', icon: ShoppingCart, label: t('nav.orders') },
-    { to: '/invoices', icon: FileText, label: t('nav.invoices') },
+    { to: '/invoices', icon: FileText, label: t('nav.invoices') }
   ]
-
-  // force re-render key when locale changes
-  void locale
 
   return (
     <div className="flex h-screen">
@@ -42,7 +39,7 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
-        <div className="px-4 pb-2">
+        <div className="px-4 pb-3">
           <LanguageSwitcher dark />
         </div>
         <div className="p-4 border-t border-gray-700">

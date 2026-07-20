@@ -1,8 +1,10 @@
+import { useI18n } from '../hooks/useI18n'
 import { useState, useEffect } from 'react'
 import { products, orders, invoices } from '../services/api'
 import { Package, ShoppingCart, FileText, TrendingUp } from 'lucide-react'
 
 export default function Dashboard() {
+  const { t } = useI18n()
   const [stats, setStats] = useState({ products: 0, orders: 0, invoices: 0, revenue: 0 })
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('dashboard.title')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {cards.map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4">

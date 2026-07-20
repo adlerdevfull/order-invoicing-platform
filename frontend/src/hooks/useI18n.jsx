@@ -3,17 +3,19 @@ import { createContext, useContext, useMemo, useState, useCallback } from 'react
 const messages = {
   "en": {
     "appName": "Orders Platform",
-    "appTagline": "Order management",
+    "appTagline": "Orders & invoicing",
     "logout": "Log out",
+    "loading": "Loading…",
     "language": "Language",
     "login": {
       "title": "Orders Platform",
-      "subtitle": "Order & invoicing",
+      "subtitle": "Orders & invoicing",
       "email": "Email",
       "password": "Password",
       "submit": "Sign in",
       "loading": "Signing in…",
-      "error": "Invalid credentials"
+      "error": "Invalid credentials",
+      "hint": "admin@platform.test / password"
     },
     "nav": {
       "home": "Dashboard",
@@ -21,12 +23,15 @@ const messages = {
       "orders": "Orders",
       "invoices": "Invoices"
     },
-    "dashboard": "Dashboard"
+    "dashboard": {
+      "title": "Dashboard"
+    }
   },
   "es": {
     "appName": "Plataforma de Pedidos",
-    "appTagline": "Gestión de Pedidos",
+    "appTagline": "Pedidos y facturación",
     "logout": "Cerrar sesión",
+    "loading": "Cargando…",
     "language": "Idioma",
     "login": {
       "title": "Plataforma de Pedidos",
@@ -35,7 +40,8 @@ const messages = {
       "password": "Contraseña",
       "submit": "Iniciar sesión",
       "loading": "Entrando…",
-      "error": "Credenciales inválidas"
+      "error": "Credenciales inválidas",
+      "hint": "admin@platform.test / password"
     },
     "nav": {
       "home": "Dashboard",
@@ -43,12 +49,15 @@ const messages = {
       "orders": "Pedidos",
       "invoices": "Facturas"
     },
-    "dashboard": "Dashboard"
+    "dashboard": {
+      "title": "Dashboard"
+    }
   },
   "pt": {
     "appName": "Plataforma de Pedidos",
-    "appTagline": "Gestão de Pedidos",
+    "appTagline": "Pedidos e faturamento",
     "logout": "Sair",
+    "loading": "Carregando…",
     "language": "Idioma",
     "login": {
       "title": "Plataforma de Pedidos",
@@ -57,7 +66,8 @@ const messages = {
       "password": "Senha",
       "submit": "Entrar",
       "loading": "Entrando…",
-      "error": "Credenciais inválidas"
+      "error": "Credenciais inválidas",
+      "hint": "admin@platform.test / password"
     },
     "nav": {
       "home": "Dashboard",
@@ -65,7 +75,9 @@ const messages = {
       "orders": "Pedidos",
       "invoices": "Faturas"
     },
-    "dashboard": "Dashboard"
+    "dashboard": {
+      "title": "Dashboard"
+    }
   }
 }
 
@@ -92,7 +104,7 @@ export function I18nProvider({ children }) {
     for (const p of parts) cur = cur?.[p]
     return typeof cur === 'string' ? cur : key
   }, [locale])
-  const value = useMemo(() => ({ locale, setLocale, t, messages: messages[locale] }), [locale, setLocale, t])
+  const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t])
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
