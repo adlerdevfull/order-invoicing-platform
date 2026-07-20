@@ -1,28 +1,34 @@
 import { Outlet, NavLink } from 'react-router-dom'
+import LanguageSwitcher from './LanguageSwitcher'
+import { useI18n } from '../hooks/useI18n'
 import { useAuth } from '../hooks/useAuth'
 import { LayoutDashboard, Package, ShoppingCart, FileText, LogOut } from 'lucide-react'
 
-const nav = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/products', icon: Package, label: 'Productos' },
-  { to: '/orders', icon: ShoppingCart, label: 'Pedidos' },
-  { to: '/invoices', icon: FileText, label: 'Facturas' },
-]
-
 export default function Layout() {
   const { user, logout } = useAuth()
+  const { t, locale } = useI18n()
+
+  const nav = [
+    { to: '/', icon: LayoutDashboard, label: t('nav.home') || t('dashboard') },
+    { to: '/products', icon: Package, label: t('nav.products') },
+    { to: '/orders', icon: ShoppingCart, label: t('nav.orders') },
+    { to: '/invoices', icon: FileText, label: t('nav.invoices') },
+  ]
+
+  // force re-render key when locale changes
+  void locale
 
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-gray-900 text-white flex flex-col">
         <div className="p-4 border-b border-gray-700">
-          <h1 className="text-lg font-bold">📦 Orders Platform</h1>
-          <p className="text-xs text-gray-400 mt-1">Gestión de Pedidos</p>
+          <h1 className="text-lg font-bold">📦 {t('appName')}</h1>
+          <p className="text-xs text-gray-400 mt-1">{t('appTagline')}</p>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {nav.map(({ to, icon: Icon, label }) => (
             <NavLink
-              key={to}
+              key={`${to}-${locale}`}
               to={to}
               end={to === '/'}
               className={({ isActive }) =>
@@ -36,13 +42,16 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
+        <div className="px-4 pb-2">
+          <LanguageSwitcher dark />
+        </div>
         <div className="p-4 border-t border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">{user?.name}</p>
               <p className="text-xs text-gray-400">{user?.email}</p>
             </div>
-            <button onClick={logout} className="text-gray-400 hover:text-white">
+            <button onClick={logout} className="text-gray-400 hover:text-white" title={t('logout')}>
               <LogOut size={18} />
             </button>
           </div>

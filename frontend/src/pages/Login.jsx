@@ -1,8 +1,11 @@
+import LanguageSwitcher from '../components/LanguageSwitcher'
+import { useI18n } from '../hooks/useI18n'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export default function Login() {
+  const { t } = useI18n()
   const [email, setEmail] = useState('admin@platform.test')
   const [password, setPassword] = useState('password')
   const [error, setError] = useState('')
@@ -18,14 +21,15 @@ export default function Login() {
       await login(email, password)
       navigate('/')
     } catch {
-      setError('Credenciales inválidas')
+      setError(t('login.error'))
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-gray-900">
+    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-blue-900 to-gray-900">
+      <div className="absolute top-4 right-4 z-10"><LanguageSwitcher /></div>
       <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900">📦 Orders Platform</h1>

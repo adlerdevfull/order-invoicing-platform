@@ -1,3 +1,5 @@
+import LanguageSwitcher from './components/LanguageSwitcher'
+import { useI18n } from './hooks/useI18n'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './hooks/useAuth'
 import Layout from './components/Layout'
