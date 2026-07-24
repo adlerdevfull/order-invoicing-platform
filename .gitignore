@@ -20,6 +20,8 @@ frontend/node_modules/
 /storage/logs/*
 !/storage/logs/.gitkeep
 /storage/framework/cache/data/*
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
 /bootstrap/cache/*.php
 config/jwt/*.pem
 *.log
